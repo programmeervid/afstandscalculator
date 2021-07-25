@@ -26,7 +26,7 @@
             function sumPenalties() {
                 var sum = 0.0;
                 if (document.getElementById("2crd").checked) {
-                    for(let i = 0; i < nrIntervals; i++) {
+                    for(var i = 0; i < nrIntervals; i++) {
                         if (document.getElementById("dist" + (i+1)).checked) {
                             sum += parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#dst")[0].value.replace(",", "."));
                         } else {
@@ -38,7 +38,7 @@
                         }
                     }
                 } else {
-                    for(let i = 0; i < nrIntervals; i++) {
+                    for(var i = 0; i < nrIntervals; i++) {
                         if (document.getElementById("dist" + (i+1)).checked) {
                             sum += parseFloat(document.getElementById("dist" + (i+1)).value.replace(",", "."));
                         } else {
@@ -207,7 +207,7 @@
                         + '</select>'
                     + '</div>';
                 }
-                for (let i = 0; i < nrIntervals; i++) {
+                for (var i = 0; i < nrIntervals; i++) {
                     if (document.getElementById("crd" + (i+1)).querySelectorAll("#dst").length > 0) {
                         document.getElementById("dist" + (i+1)).checked = true;
                     }
@@ -232,7 +232,7 @@
                         + '<option value="W">W</option>'
                     + '</select>'
                 + '</div>';
-                for(let i = 0; i < nrIntervals; i++) {
+                for(var i = 0; i < nrIntervals; i++) {
                     document.getElementById("dist" + (i+1)).checked = false;
                     document.getElementById("crd" + (i+1)).innerHTML = 
                     '<div id="crd' + (i+1) + '">'
@@ -274,7 +274,7 @@
                     + '<input type="text" style="width:128px" placeholder="0.00000" id="lat1">°, '
                     + '<input type="text" style="width:128px" placeholder="0.00000" id="lon1">°'
                 + '</div>';
-                for(let i = 0; i < nrIntervals; i++) {
+                for(var i = 0; i < nrIntervals; i++) {
                     document.getElementById("dist" + (i+1)).checked = false;
                     document.getElementById("crd" + (i+1)).innerHTML = 
                     '<div id="crd' + (i+1) + '">'
