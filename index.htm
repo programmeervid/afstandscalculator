@@ -115,8 +115,8 @@
                                     var response = xmlhttpp.responseText;
                                     var start = response.indexOf(">", response.indexOf("<result"))+1;
                                     var end = response.indexOf("<", response.indexOf(">", response.indexOf("<result")));
-                                    document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + response.slice(start, end);*/
-                                }
+                                    document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + response.slice(start, end);0
+                                }*/
                             }
                         xmlhttpp.open("GET", "https://nominatim.openstreetmap.org/reverse?lat=52&lon=5", true);
                         xmlhttpp.send(null);
