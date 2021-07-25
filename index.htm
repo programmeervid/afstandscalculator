@@ -167,7 +167,7 @@
                     document.getElementById("crd_plus").innerHTML = 
                     currentHTML
                     + '<br>Tussentraject ' + nrIntervals + ': '
-                    + '(<i><input type="checkbox" value="0" id="dist' + nrIntervals + '" onclick="javascript:distBoxUpdate(' + nrIntervals + ')"><label for="dist">Voer direct afstand in</label></label></i>)<br>'
+                    + '(<i><input type="checkbox" value="0" id="dist' + nrIntervals + '" onchange="javascript:distBoxUpdate(' + nrIntervals + ')"><label for="dist">Voer direct afstand in</label></label></i>)<br>'
                     + '<div id="crd' + nrIntervals + '">'
                         + '<input type="text" style="width:128px" placeholder="0.00000" id="lat1">°, '
                         + '<input type="text" style="width:128px" placeholder="0.00000" id="lon1">°<br>'
@@ -178,7 +178,7 @@
                     document.getElementById("crd_plus").innerHTML = 
                     currentHTML
                     + '<br>Tussentraject ' + nrIntervals + ': '
-                    + '(<i><input type="checkbox" value="0" id="dist' + nrIntervals + '" onclick="javascript:distBoxUpdate(' + nrIntervals + ')"><label for="dist">Voer direct afstand in</label></label></i>)<br>'
+                    + '(<i><input type="checkbox" value="0" id="dist' + nrIntervals + '" onchange="javascript:distBoxUpdate(' + nrIntervals + ')"><label for="dist">Voer direct afstand in</label></label></i>)<br>'
                     + '<div id="crd' + nrIntervals + '">'
                         + '<input type="text" style="width:24px" placeholder="0">° '
                         + '<input type="text" style="width:24px" placeholder="0">’ '
@@ -302,12 +302,12 @@
         <br><br>
 
         Notatie van coördinaten: <i style="color: red">(let op: verwijdert reeds ingevoerde data)</i><br>
-        <input type="radio" onclick="javascript:crdUp()" id="2crd" name="ncrd" value="2crd" checked="checked">
+        <input type="radio" onchange="javascript:crdUp()" id="2crd" name="ncrd" value="2crd" checked="checked">
         <label for="2crd">
             <input type="text" disabled style="width:54px" value="0.00000">°,
             <input type="text" disabled style="width:54px" value="0.00000">°
         </label><br>
-        <input type="radio" onclick="javascript:crdDown()" id="6crd" name="ncrd" value="6crd">
+        <input type="radio" onchange="javascript:crdDown()" id="6crd" name="ncrd" value="6crd">
         <label for="6crd">
             <input type="text" disabled style="width:18px" value="0">°
             <input type="text" disabled style="width:18px" value="0">’
@@ -333,10 +333,10 @@
         </div><br>
 
         <div id="crd_plus">
-            <button onclick="javascript:addPenaltyCrds()">Voeg penaltytraject toe</button> <i style="color: red">(let op: verwijdert reeds ingevoerde data)</i><br>
+            <button onchange="javascript:addPenaltyCrds()">Voeg penaltytraject toe</button> <i style="color: red">(let op: verwijdert reeds ingevoerde data)</i><br>
         </div><br>
 
-        <button onclick="javascript:showResult()">Bereken</button>
+        <button onchange="javascript:showResult()">Bereken</button>
         <br>
 
         <p id="result">Voer de vereiste coördinaten in.</p>
