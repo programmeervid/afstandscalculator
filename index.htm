@@ -66,19 +66,21 @@
             }
 
             function showResult() {
+                var lat2 = 0.0;
+                var lon2 = 0.0;
                 if (document.getElementById("2crd").checked) {
                     var lat1 = parseFloat(document.getElementById("latstart").value.replace(",", "."));
                     var lon1 = parseFloat(document.getElementById("lonstart").value.replace(",", "."));
-                    var lat2 = parseFloat(document.getElementById("crd0").querySelectorAll("#lat1")[0].value.replace(",", "."));
-                    var lon2 = parseFloat(document.getElementById("crd0").querySelectorAll("#lon1")[0].value.replace(",", "."));
+                    lat2 = parseFloat(document.getElementById("crd0").querySelectorAll("#lat1")[0].value.replace(",", "."));
+                    lon2 = parseFloat(document.getElementById("crd0").querySelectorAll("#lon1")[0].value.replace(",", "."));
                 } else {
                     var lat1 = parseFloat(document.getElementById("latstart").value.replace(",", "."));
                     var lon1 = parseFloat(document.getElementById("lonstart").value.replace(",", "."));
-                    var lat2 = (parseFloat(document.getElementById("crd0").querySelectorAll("#lat1d")[0].value.replace(",", "."))
+                    lat2 = (parseFloat(document.getElementById("crd0").querySelectorAll("#lat1d")[0].value.replace(",", "."))
                             + parseFloat(document.getElementById("crd0").querySelectorAll("#lat1m")[0].value.replace(",", "."))/60
                             + parseFloat(document.getElementById("crd0").querySelectorAll("#lat1s")[0].value.replace(",", "."))/3600)
                             * ((document.getElementById("crd0").querySelectorAll("#lat1p")[0].value == "N") ? 1 : -1 );
-                            var lon2 = (parseFloat(document.getElementById("crd0").querySelectorAll("#lon1d")[0].value.replace(",", "."))
+                    lon2 = (parseFloat(document.getElementById("crd0").querySelectorAll("#lon1d")[0].value.replace(",", "."))
                             + parseFloat(document.getElementById("crd0").querySelectorAll("#lon1m")[0].value.replace(",", "."))/60
                             + parseFloat(document.getElementById("crd0").querySelectorAll("#lon1s")[0].value.replace(",", "."))/3600)
                             * ((document.getElementById("crd0").querySelectorAll("#lon1p")[0].value == "E") ? 1 : -1 );
@@ -91,7 +93,13 @@
                     console.log("init. distance: " + getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2));
                     console.log("penalty: " + penalty);
                     console.log("result: " + result);
-                    document.getElementById("result").innerHTML = "Je hebt <u>" + result + " km</u> afgelegd.";
+                    document.getElementById("result").innerHTML = "<b>Je hebt <u>" + result + " km</u> afgelegd.</b>";
+                    if (document.getElementById("online").checked) {
+                        var location_name = "";
+                        fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2)
+                            .then(response => response.json())
+                            .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);
+                    }
                 }
             }
 
@@ -323,8 +331,8 @@
         </div><br>
 
         <button onclick="showResult()">Bereken</button>
-        <br><br>
+        <br>
 
-        <b id="result">Voer de vereiste coördinaten in.</b>
+        <p id="result">Voer de vereiste coördinaten in.</p>
     </body>
 </html>
