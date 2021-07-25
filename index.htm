@@ -28,35 +28,35 @@
                 if (document.getElementById("2crd").checked) {
                     for(let i = 0; i < nrIntervals; i++) {
                         if (document.getElementById("dist" + (i+1)).checked) {
-                            sum += parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#dst")[0].value);
+                            sum += parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#dst")[0].value.replace(",", "."));
                         } else {
-                            var lat1 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1")[0].value);
-                            var lon1 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1")[0].value);
-                            var lat2 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2")[0].value);
-                            var lon2 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2")[0].value);
+                            var lat1 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1")[0].value.replace(",", "."));
+                            var lon1 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1")[0].value.replace(",", "."));
+                            var lat2 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2")[0].value.replace(",", "."));
+                            var lon2 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2")[0].value.replace(",", "."));
                             sum += getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
                         }
                     }
                 } else {
                     for(let i = 0; i < nrIntervals; i++) {
                         if (document.getElementById("dist" + (i+1)).checked) {
-                            sum += parseFloat(document.getElementById("dist" + (i+1)).value);
+                            sum += parseFloat(document.getElementById("dist" + (i+1)).value.replace(",", "."));
                         } else {
-                            var lat1 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1d")[0].value)
-                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1m")[0].value)/60
-                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1s")[0].value)/3600)
+                            var lat1 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1d")[0].value.replace(",", "."))
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1m")[0].value.replace(",", "."))/60
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1s")[0].value.replace(",", "."))/3600)
                                     * ((document.getElementById("crd" + (i+1)).querySelectorAll("#lat1p")[0].value == "N") ? 1 : -1 );
-                            var lon1 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1d")[0].value)
-                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1m")[0].value)/60
-                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1s")[0].value)/3600)
+                            var lon1 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1d")[0].value.replace(",", "."))
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1m")[0].value.replace(",", "."))/60
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1s")[0].value.replace(",", "."))/3600)
                                     * ((document.getElementById("crd" + (i+1)).querySelectorAll("#lon1p")[0].value == "E") ? 1 : -1 );
-                            var lat2 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2d")[0].value)
-                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2m")[0].value)/60
-                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2s")[0].value)/3600)
+                            var lat2 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2d")[0].value.replace(",", "."))
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2m")[0].value.replace(",", "."))/60
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2s")[0].value.replace(",", "."))/3600)
                                     * ((document.getElementById("crd" + (i+1)).querySelectorAll("#lat2p")[0].value == "N") ? 1 : -1 );
-                            var lon2 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2d")[0].value)
-                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2m")[0].value)/60
-                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2s")[0].value)/3600)
+                            var lon2 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2d")[0].value.replace(",", "."))
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2m")[0].value.replace(",", "."))/60
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2s")[0].value.replace(",", "."))/3600)
                                     * ((document.getElementById("crd" + (i+1)).querySelectorAll("#lon2p")[0].value == "E") ? 1 : -1 );
                             sum += getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
                         }
@@ -67,20 +67,20 @@
 
             function showResult() {
                 if (document.getElementById("2crd").checked) {
-                    var lat1 = parseFloat(document.getElementById("latstart").value);
-                    var lon1 = parseFloat(document.getElementById("lonstart").value);
-                    var lat2 = parseFloat(document.getElementById("crd0").querySelectorAll("#lat1")[0].value);
-                    var lon2 = parseFloat(document.getElementById("crd0").querySelectorAll("#lon1")[0].value);
+                    var lat1 = parseFloat(document.getElementById("latstart").value.replace(",", "."));
+                    var lon1 = parseFloat(document.getElementById("lonstart").value.replace(",", "."));
+                    var lat2 = parseFloat(document.getElementById("crd0").querySelectorAll("#lat1")[0].value.replace(",", "."));
+                    var lon2 = parseFloat(document.getElementById("crd0").querySelectorAll("#lon1")[0].value.replace(",", "."));
                 } else {
-                    var lat1 = parseFloat(document.getElementById("latstart").value);
-                    var lon1 = parseFloat(document.getElementById("lonstart").value);
-                    var lat2 = (parseFloat(document.getElementById("crd0").querySelectorAll("#lat1d")[0].value)
-                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lat1m")[0].value)/60
-                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lat1s")[0].value)/3600)
+                    var lat1 = parseFloat(document.getElementById("latstart").value.replace(",", "."));
+                    var lon1 = parseFloat(document.getElementById("lonstart").value.replace(",", "."));
+                    var lat2 = (parseFloat(document.getElementById("crd0").querySelectorAll("#lat1d")[0].value.replace(",", "."))
+                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lat1m")[0].value.replace(",", "."))/60
+                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lat1s")[0].value.replace(",", "."))/3600)
                             * ((document.getElementById("crd0").querySelectorAll("#lat1p")[0].value == "N") ? 1 : -1 );
-                            var lon2 = (parseFloat(document.getElementById("crd0").querySelectorAll("#lon1d")[0].value)
-                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lon1m")[0].value)/60
-                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lon1s")[0].value)/3600)
+                            var lon2 = (parseFloat(document.getElementById("crd0").querySelectorAll("#lon1d")[0].value.replace(",", "."))
+                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lon1m")[0].value.replace(",", "."))/60
+                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lon1s")[0].value.replace(",", "."))/3600)
                             * ((document.getElementById("crd0").querySelectorAll("#lon1p")[0].value == "E") ? 1 : -1 );
                 }
                 var penalty = sumPenalties();
