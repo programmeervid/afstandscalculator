@@ -107,7 +107,7 @@
                                 var response = xmlhttpp.responseText;
                                 var start = response.indexOf(">", response.indexOf("<result"))+1;
                                 var end = response.indexOf("<", response.indexOf(">", response.indexOf("<result")));
-                                document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br><br>" + response.slice(start, end);
+                                document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br>" + response.slice(start, end);
                             }
                         xmlhttpp.open("GET", 'https://nominatim.openstreetmap.org/reverse?lat=' + lat2 + '&lon=' + lon2 + '&accept-language=nl', true);
                         xmlhttpp.send(null);
@@ -116,7 +116,7 @@
                                 var response = xmlhttpp2.responseText;
                                 var start = response.indexOf(">", response.indexOf("<result"))+1;
                                 var end = response.indexOf("<", response.indexOf(">", response.indexOf("<result")));
-                                document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br><br>" + response.slice(start, end);
+                                document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br>" + response.slice(start, end);
                             }
                         xmlhttpp2.open("GET", 'https://nominatim.openstreetmap.org/reverse?lat=' + lat2 + '&lon=' + lon2 + '&accept-language=en', true);
                         xmlhttpp2.send(null);
