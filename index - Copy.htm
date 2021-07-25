@@ -159,7 +159,7 @@
 
             function addPenaltyCrds() {
                 nrIntervals += 1;
-                currentHTML = document.getElementById("crd_plus").innerHTML;
+                currentHTML = document.getElementById("crd_plus").getInnerHTML();
                 if (document.getElementById("2crd").checked) {
                     document.getElementById("crd_plus").innerHTML = 
                     currentHTML
