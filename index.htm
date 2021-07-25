@@ -106,12 +106,16 @@
                         if (window.XMLHttpRequest){ xmlhttpp=new XMLHttpRequest(); }else{ xmlhttpp=new ActiveXObject("Microsoft.XMLHTTP"); }
                             xmlhttpp.onreadystatechange=function(){
                                 alert(2);
-                                if(xmlhttpp.status==200){
+                                var response = xmlhttpp.responseText;
+                                var start = response.indexOf(">", response.indexOf("<result"))+1;
+                                var end = response.indexOf("<", response.indexOf(">", response.indexOf("<result")));
+                                document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + response.slice(start, end);
+                                /*if(xmlhttpp.readyState==4 && xmlhttpp.status==200){
                                     alert(3);
                                     var response = xmlhttpp.responseText;
                                     var start = response.indexOf(">", response.indexOf("<result"))+1;
                                     var end = response.indexOf("<", response.indexOf(">", response.indexOf("<result")));
-                                    document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + response.slice(start, end);
+                                    document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + response.slice(start, end);*/
                                 }
                             }
                         xmlhttpp.open("GET", "https://nominatim.openstreetmap.org/reverse?lat=52&lon=5", true);
