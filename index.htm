@@ -96,12 +96,23 @@
                     document.getElementById("result").innerHTML = "<b>Je hebt <u>" + result + " km</u> afgelegd.</b>";
                     if (document.getElementById("online").checked) {
                         var location_name = "";
-                        //fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2 + '&accept-language=nl')
-                        //    .then(response => response.json())
-                        //    .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);
-                        //fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2 + '&accept-language=en')
-                        //    .then(response => response.json())
-                        //    .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);
+                        /*fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2 + '&accept-language=nl')
+                            .then(response => response.json())
+                            .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);
+                        fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2 + '&accept-language=en')
+                            .then(response => response.json())
+                            .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);*/
+                        if (window.XMLHttpRequest){ xmlhttpp=new XMLHttpRequest(); }else{ xmlhttpp=new ActiveXObject("Microsoft.XMLHTTP"); }
+                            xmlhttpp.onreadystatechange=function(){
+                                if(xmlhttpp.readyState==4 && xmlhttpp.status==200){
+                                    var response = xmlhttpp.responseText;
+                                    var start = response.indexOf(">", response.indexOf("<result"))+1;
+                                    var end = response.indexOf("<", response.indexOf(">", response.indexOf("<result")));
+                                    document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + response.slice(start, end);
+                                }
+                            }
+                        xmlhttpp.open("GET", "https://nominatim.openstreetmap.org/reverse?lat=52&lon=5", true);
+                        xmlhttpp.send(null);
                     }
                 }
             }
