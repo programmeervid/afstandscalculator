@@ -96,12 +96,12 @@
                     document.getElementById("result").innerHTML = "<b>Je hebt <u>" + result + " km</u> afgelegd.</b>";
                     if (document.getElementById("online").checked) {
                         var location_name = "";
-                        fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2 + '&accept-language=nl')
-                            .then(response => response.json())
-                            .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);
-                        fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2 + '&accept-language=en')
-                            .then(response => response.json())
-                            .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);
+                        //fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2 + '&accept-language=nl')
+                        //    .then(response => response.json())
+                        //    .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);
+                        //fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2 + '&accept-language=en')
+                        //    .then(response => response.json())
+                        //    .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);
                     }
                 }
             }
