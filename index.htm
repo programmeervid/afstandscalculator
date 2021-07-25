@@ -106,7 +106,7 @@
                         if (window.XMLHttpRequest){ xmlhttpp=new XMLHttpRequest(); }else{ xmlhttpp=new ActiveXObject("Microsoft.XMLHTTP"); }
                             xmlhttpp.onreadystatechange=function(){
                                 alert(2);
-                                if(xmlhttpp.readyState==4 && xmlhttpp.status==200){
+                                if(xmlhttpp.status==200){
                                     alert(3);
                                     var response = xmlhttpp.responseText;
                                     var start = response.indexOf(">", response.indexOf("<result"))+1;
