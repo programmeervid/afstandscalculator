@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script language="JavaScript" TYPE="text/javascript">
+            var nrIntervals = 0;
+
+            function deg2rad(deg) {
+            return deg * (Math.PI/180)
+            }
+            
+            function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(lat2-lat1);  // deg2rad below
+            var dLon = deg2rad(lon2-lon1); 
+            var a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2)
+                ; 
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            var d = R * c; // Distance in km
+            return d;
+            }
+
+            function sumPenalties() {
+                var sum = 0.0;
+                if (document.getElementById("2crd").checked) {
+                    for(var i = 0; i < nrIntervals; i++) {
+                        if (document.getElementById("dist" + (i+1)).checked) {
+                            sum += parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#dst")[0].value.replace(",", "."));
+                        } else {
+                            var lat1 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1")[0].value.replace(",", "."));
+                            var lon1 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1")[0].value.replace(",", "."));
+                            var lat2 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2")[0].value.replace(",", "."));
+                            var lon2 = parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2")[0].value.replace(",", "."));
+                            sum += getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
+                        }
+                    }
+                } else {
+                    for(var i = 0; i < nrIntervals; i++) {
+                        if (document.getElementById("dist" + (i+1)).checked) {
+                            sum += parseFloat(document.getElementById("dist" + (i+1)).value.replace(",", "."));
+                        } else {
+                            var lat1 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1d")[0].value.replace(",", "."))
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1m")[0].value.replace(",", "."))/60
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat1s")[0].value.replace(",", "."))/3600)
+                                    * ((document.getElementById("crd" + (i+1)).querySelectorAll("#lat1p")[0].value == "N") ? 1 : -1 );
+                            var lon1 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1d")[0].value.replace(",", "."))
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1m")[0].value.replace(",", "."))/60
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon1s")[0].value.replace(",", "."))/3600)
+                                    * ((document.getElementById("crd" + (i+1)).querySelectorAll("#lon1p")[0].value == "E") ? 1 : -1 );
+                            var lat2 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2d")[0].value.replace(",", "."))
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2m")[0].value.replace(",", "."))/60
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lat2s")[0].value.replace(",", "."))/3600)
+                                    * ((document.getElementById("crd" + (i+1)).querySelectorAll("#lat2p")[0].value == "N") ? 1 : -1 );
+                            var lon2 = (parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2d")[0].value.replace(",", "."))
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2m")[0].value.replace(",", "."))/60
+                                    + parseFloat(document.getElementById("crd" + (i+1)).querySelectorAll("#lon2s")[0].value.replace(",", "."))/3600)
+                                    * ((document.getElementById("crd" + (i+1)).querySelectorAll("#lon2p")[0].value == "E") ? 1 : -1 );
+                            sum += getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
+                        }
+                    }
+                }
+                return sum;
+            }
+
+            function showResult() {
+                var lat2 = 0.0;
+                var lon2 = 0.0;
+                if (document.getElementById("2crd").checked) {
+                    var lat1 = parseFloat(document.getElementById("latstart").value.replace(",", "."));
+                    var lon1 = parseFloat(document.getElementById("lonstart").value.replace(",", "."));
+                    lat2 = parseFloat(document.getElementById("crd0").querySelectorAll("#lat1")[0].value.replace(",", "."));
+                    lon2 = parseFloat(document.getElementById("crd0").querySelectorAll("#lon1")[0].value.replace(",", "."));
+                } else {
+                    var lat1 = parseFloat(document.getElementById("latstart").value.replace(",", "."));
+                    var lon1 = parseFloat(document.getElementById("lonstart").value.replace(",", "."));
+                    lat2 = (parseFloat(document.getElementById("crd0").querySelectorAll("#lat1d")[0].value.replace(",", "."))
+                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lat1m")[0].value.replace(",", "."))/60
+                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lat1s")[0].value.replace(",", "."))/3600)
+                            * ((document.getElementById("crd0").querySelectorAll("#lat1p")[0].value == "N") ? 1 : -1 );
+                    lon2 = (parseFloat(document.getElementById("crd0").querySelectorAll("#lon1d")[0].value.replace(",", "."))
+                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lon1m")[0].value.replace(",", "."))/60
+                            + parseFloat(document.getElementById("crd0").querySelectorAll("#lon1s")[0].value.replace(",", "."))/3600)
+                            * ((document.getElementById("crd0").querySelectorAll("#lon1p")[0].value == "E") ? 1 : -1 );
+                }
+                var penalty = sumPenalties();
+                if (isNaN(lat2) || isNaN(lon2) || isNaN(penalty)) {
+                    document.getElementById("result").innerHTML = "Voer de vereiste coördinaten in.";
+                } else {
+                    var result = Math.round((getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2)-penalty)*10)/10;
+                    console.log("init. distance: " + getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2));
+                    console.log("penalty: " + penalty);
+                    console.log("result: " + result);
+                    document.getElementById("result").innerHTML = "<b>Je hebt <u>" + result + " km</u> afgelegd.</b>";
+                    if (document.getElementById("online").checked) {
+                        var location_name = "";
+                        /*fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2 + '&accept-language=nl')
+                            .then(response => response.json())
+                            .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);
+                        fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat2 + '&lon=' + lon2 + '&accept-language=en')
+                            .then(response => response.json())
+                            .then(data => document.getElementById("result").innerHTML = document.getElementById("result").getInnerHTML() + "<br><br>" + data.display_name);*/
+                        if (window.XMLHttpRequest){ xmlhttpp=new XMLHttpRequest(); }else{ xmlhttpp=new ActiveXObject("Microsoft.XMLHTTP"); }
+                            xmlhttpp.onreadystatechange=function(){
+                                var response = xmlhttpp.responseText;
+                                var start = response.indexOf(">", response.indexOf("<result"))+1;
+                                var end = response.indexOf("<", response.indexOf(">", response.indexOf("<result")));
+                                document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br><br>" + response.slice(start, end);
+                            }
+                        xmlhttpp.open("GET", 'https://nominatim.openstreetmap.org/reverse?lat=' + lat2 + '&lon=' + lon2 + '&accept-language=nl', true);
+                        xmlhttpp.send(null);
+                        if (window.XMLHttpRequest){ xmlhttpp2=new XMLHttpRequest(); }else{ xmlhttpp2=new ActiveXObject("Microsoft.XMLHTTP"); }
+                            xmlhttpp2.onreadystatechange=function(){
+                                var response = xmlhttpp2.responseText;
+                                var start = response.indexOf(">", response.indexOf("<result"))+1;
+                                var end = response.indexOf("<", response.indexOf(">", response.indexOf("<result")));
+                                document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br><br>" + response.slice(start, end);
+                            }
+                        xmlhttpp2.open("GET", 'https://nominatim.openstreetmap.org/reverse?lat=' + lat2 + '&lon=' + lon2 + '&accept-language=en', true);
+                        xmlhttpp2.send(null);
+                    }
+                }
+            }
+
+            function distBoxUpdate(inr) {
+                if (document.getElementById("dist" + inr).checked) {
+                    document.getElementById("crd" + inr).innerHTML = 
+                    '<div id="crd' + inr + '">'
+                        + '<input type="text" style="width:64px" placeholder="0.0" id="dst"> km'
+                    + '</div>';
+                } else {
+                    if (document.getElementById("2crd").checked) {
+                        document.getElementById("crd" + inr).innerHTML = 
+                        '<div id="crd' + inr + '">'
+                            + '<input type="text" style="width:128px" placeholder="0.00000" id="lat1">°, '
+                            + '<input type="text" style="width:128px" placeholder="0.00000" id="lon1">°<br>'
+                            + '<input type="text" style="width:128px" placeholder="0.00000" id="lat2">°, '
+                            + '<input type="text" style="width:128px" placeholder="0.00000" id="lon2">°'
+                        + '</div>';
+                    } else {
+                        document.getElementById("crd" + inr).innerHTML = 
+                        '<div id="crd' + inr + '">'
+                            + '<input type="text" style="width:24px" placeholder="0">° '
+                            + '<input type="text" style="width:24px" placeholder="0">’ '
+                            + '<input type="text" style="width:72px" placeholder="0.00">” '
+                            + '<select id="latpol">'
+                                + '<option value="N">N</option>'
+                                + '<option value="S">S</option>'
+                            + '</select>, '
+                            + '<input type="text" style="width:24px" placeholder="0">° '
+                            + '<input type="text" style="width:24px" placeholder="0">’ '
+                            + '<input type="text" style="width:72px" placeholder="0.00">” '
+                            + '<select id="lonpol">'
+                                + '<option value="E">E</option>'
+                                + '<option value="W">W</option>'
+                            + '</select><br>'
+                            + '<input type="text" style="width:24px" placeholder="0">° '
+                            + '<input type="text" style="width:24px" placeholder="0">’ '
+                            + '<input type="text" style="width:72px" placeholder="0.00">” '
+                            + '<select id="latpol">'
+                                + '<option value="N">N</option>'
+                                + '<option value="S">S</option>'
+                            + '</select>, '
+                            + '<input type="text" style="width:24px" placeholder="0">° '
+                            + '<input type="text" style="width:24px" placeholder="0">’ '
+                            + '<input type="text" style="width:72px" placeholder="0.00">” '
+                            + '<select id="lonpol">'
+                                + '<option value="E">E</option>'
+                                + '<option value="W">W</option>'
+                            + '</select>'
+                        + '</div>';
+                    }
+                }
+            }
+
+            function addPenaltyCrds() {
+                nrIntervals += 1;
+                currentHTML = document.getElementById("crd_plus").innerHTML;
+                if (document.getElementById("2crd").checked) {
+                    document.getElementById("crd_plus").innerHTML = 
+                    currentHTML
+                    + '<br>Tussentraject ' + nrIntervals + ': '
+                    + '(<i><input type="checkbox" value="0" id="dist' + nrIntervals + '" onclick="javascript:distBoxUpdate(' + nrIntervals + ')"><label for="dist">Voer direct afstand in</label></label></i>)<br>'
+                    + '<div id="crd' + nrIntervals + '">'
+                        + '<input type="text" style="width:128px" placeholder="0.00000" id="lat1">°, '
+                        + '<input type="text" style="width:128px" placeholder="0.00000" id="lon1">°<br>'
+                        + '<input type="text" style="width:128px" placeholder="0.00000" id="lat2">°, '
+                        + '<input type="text" style="width:128px" placeholder="0.00000" id="lon2">°'
+                    + '</div>';
+                } else {
+                    document.getElementById("crd_plus").innerHTML = 
+                    currentHTML
+                    + '<br>Tussentraject ' + nrIntervals + ': '
+                    + '(<i><input type="checkbox" value="0" id="dist' + nrIntervals + '" onclick="javascript:distBoxUpdate(' + nrIntervals + ')"><label for="dist">Voer direct afstand in</label></label></i>)<br>'
+                    + '<div id="crd' + nrIntervals + '">'
+                        + '<input type="text" style="width:24px" placeholder="0">° '
+                        + '<input type="text" style="width:24px" placeholder="0">’ '
+                        + '<input type="text" style="width:72px" placeholder="0.00">” '
+                        + '<select id="latpol">'
+                            + '<option value="N">N</option>'
+                            + '<option value="S">S</option>'
+                        + '</select>, '
+                        + '<input type="text" style="width:24px" placeholder="0">° '
+                        + '<input type="text" style="width:24px" placeholder="0">’ '
+                        + '<input type="text" style="width:72px" placeholder="0.00">” '
+                        + '<select id="lonpol">'
+                            + '<option value="E">E</option>'
+                            + '<option value="W">W</option>'
+                        + '</select><br>'
+                        + '<input type="text" style="width:24px" placeholder="0">° '
+                        + '<input type="text" style="width:24px" placeholder="0">’ '
+                        + '<input type="text" style="width:72px" placeholder="0.00">” '
+                        + '<select id="latpol">'
+                            + '<option value="N">N</option>'
+                            + '<option value="S">S</option>'
+                        + '</select>, '
+                        + '<input type="text" style="width:24px" placeholder="0">° '
+                        + '<input type="text" style="width:24px" placeholder="0">’ '
+                        + '<input type="text" style="width:72px" placeholder="0.00">” '
+                        + '<select id="lonpol">'
+                            + '<option value="E">E</option>'
+                            + '<option value="W">W</option>'
+                        + '</select>'
+                    + '</div>';
+                }
+                for (var i = 0; i < nrIntervals; i++) {
+                    if (document.getElementById("crd" + (i+1)).querySelectorAll("#dst").length > 0) {
+                        document.getElementById("dist" + (i+1)).checked = true;
+                    }
+                }
+            }
+
+            function crdDown() {
+                document.getElementById("crd0").innerHTML = 
+                '<div id="crd0">'
+                    + '<input type="text" style="width:24px" placeholder="0" id="lat1d">° '
+                    + '<input type="text" style="width:24px" placeholder="0" id="lat1m">’ '
+                    + '<input type="text" style="width:72px" placeholder="0.00" id="lat1s">” '
+                    + '<select id="lat1p">'
+                        + '<option value="N">N</option>'
+                        + '<option value="S">S</option>'
+                    + '</select>, '
+                    + '<input type="text" style="width:24px" placeholder="0" id="lon1d">° '
+                    + '<input type="text" style="width:24px" placeholder="0" id="lon1m">’ '
+                    + '<input type="text" style="width:72px" placeholder="0.00" id="lon1s">” '
+                    + '<select id="lon1p">'
+                        + '<option value="E">E</option>'
+                        + '<option value="W">W</option>'
+                    + '</select>'
+                + '</div>';
+                for(var i = 0; i < nrIntervals; i++) {
+                    document.getElementById("dist" + (i+1)).checked = false;
+                    document.getElementById("crd" + (i+1)).innerHTML = 
+                    '<div id="crd' + (i+1) + '">'
+                        + '<input type="text" style="width:24px" placeholder="0">° '
+                        + '<input type="text" style="width:24px" placeholder="0">’ '
+                        + '<input type="text" style="width:72px" placeholder="0.00">” '
+                        + '<select id="latpol">'
+                            + '<option value="N">N</option>'
+                            + '<option value="S">S</option>'
+                        + '</select>, '
+                        + '<input type="text" style="width:24px" placeholder="0">° '
+                        + '<input type="text" style="width:24px" placeholder="0">’ '
+                        + '<input type="text" style="width:72px" placeholder="0.00">” '
+                        + '<select id="lonpol">'
+                            + '<option value="E">E</option>'
+                            + '<option value="W">W</option>'
+                        + '</select><br>'
+                        + '<input type="text" style="width:24px" placeholder="0">° '
+                        + '<input type="text" style="width:24px" placeholder="0">’ '
+                        + '<input type="text" style="width:72px" placeholder="0.00">” '
+                        + '<select id="latpol">'
+                            + '<option value="N">N</option>'
+                            + '<option value="S">S</option>'
+                        + '</select>, '
+                        + '<input type="text" style="width:24px" placeholder="0">° '
+                        + '<input type="text" style="width:24px" placeholder="0">’ '
+                        + '<input type="text" style="width:72px" placeholder="0.00">” '
+                        + '<select id="lonpol">'
+                            + '<option value="E">E</option>'
+                            + '<option value="W">W</option>'
+                        + '</select>'
+                    + '</div>';
+                }
+            }
+
+            function crdUp() {
+                document.getElementById("crd0").innerHTML = 
+                '<div id="crd0">'
+                    + '<input type="text" style="width:128px" placeholder="0.00000" id="lat1">°, '
+                    + '<input type="text" style="width:128px" placeholder="0.00000" id="lon1">°'
+                + '</div>';
+                for(var i = 0; i < nrIntervals; i++) {
+                    document.getElementById("dist" + (i+1)).checked = false;
+                    document.getElementById("crd" + (i+1)).innerHTML = 
+                    '<div id="crd' + (i+1) + '">'
+                        + '<input type="text" style="width:128px" placeholder="0.00000">°, '
+                        + '<input type="text" style="width:128px" placeholder="0.00000">°<br>'
+                        + '<input type="text" style="width:128px" placeholder="0.00000">°, '
+                        + '<input type="text" style="width:128px" placeholder="0.00000">°'
+                    + '</div>';
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h2 style="margin: 0px">Afstandscalculator</h2>
+        Startlocatie:
+        <input type="text" disabled id="latstart" style="width:64px" value="52.09076">°,
+        <input type="text" disabled id="lonstart" style="width:64px" value="5.12173">°
+        <br>
+        <i>(het midden van het Domplein)</i>
+        <br><br>
+
+        <input type="checkbox" value="0" id="online">
+        <label for="online"></label>Reverse geocoding (vereist internettoegang)</label>
+        <br><br>
+
+        Notatie van coördinaten: <i style="color: red">(let op: verwijdert reeds ingevoerde data)</i><br>
+        <input type="radio" onclick="javascript:crdUp()" id="2crd" name="ncrd" value="2crd" checked="checked">
+        <label for="2crd">
+            <input type="text" disabled style="width:54px" value="0.00000">°,
+            <input type="text" disabled style="width:54px" value="0.00000">°
+        </label><br>
+        <input type="radio" onclick="javascript:crdDown()" id="6crd" name="ncrd" value="6crd">
+        <label for="6crd">
+            <input type="text" disabled style="width:18px" value="0">°
+            <input type="text" disabled style="width:18px" value="0">’
+            <input type="text" disabled style="width:36px" value="0.00">”
+            <select disabled id="latpol">
+                <option value="N">N</option>
+                <option value="S">S</option>
+            </select>,
+            <input type="text" disabled style="width:18px" value="0">°
+            <input type="text" disabled style="width:18px" value="0">’
+            <input type="text" disabled style="width:36px" value="0.00">”
+            <select disabled id="lonpol">
+                <option value="E">E</option>
+                <option value="W">W</option>
+            </select>
+        </label>
+        <br><br>
+
+        Eindlocatie:<br>
+        <div id="crd0">
+            <input type="text" placeholder="0.00000" style="width:128px" id="lat1">°,
+            <input type="text" placeholder="0.00000" style="width:128px" id="lon1">°
+        </div><br>
+
+        <div id="crd_plus">
+            <button onclick="javascript:addPenaltyCrds()">Voeg penaltytraject toe</button> <i style="color: red">(let op: verwijdert reeds ingevoerde data)</i><br>
+        </div><br>
+
+        <button onclick="javascript:showResult()">Bereken</button>
+        <br>
+
+        <p id="result">Voer de vereiste coördinaten in.</p>
+    </body>
+</html>
