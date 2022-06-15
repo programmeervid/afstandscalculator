@@ -3,6 +3,49 @@
     <head>
         <meta charset="utf-8">
         <script language="JavaScript" TYPE="text/javascript">
+            function updateRadio(name) {
+                var radios = document.getElementsByName(name);
+                for (i=0; i<radios.length; i++) {
+                    const collection = document.getElementsByClassName(radios[i].id);
+                    for (j=0; j<collection.length; j++) {
+                        collection[j].disabled = !radios[i].checked;
+                        console.log(radios[i].checked);
+                        console.log(collection[j].id)
+                    }
+                }
+            }
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                } else {
+                    document.getElementById("geolocStatus").innerHTML = "Geolocation is not supported by this browser.";
+                }
+            }
+
+            function showPosition(position) {
+                document.getElementById("lat_automatic").innerHTML = position.coords.latitude;
+                document.getElementById("lon_automatic").innerHTML = position.coords.longitude;
+            }
+
+            function showError(error) {
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        document.getElementById("geolocStatus").innerHTML = "User denied the request for Geolocation."
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        document.getElementById("geolocStatus").innerHTML = "Location information is unavailable."
+                        break;
+                    case error.TIMEOUT:
+                        document.getElementById("geolocStatus").innerHTML = "The request to get user location timed out."
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        document.getElementById("geolocStatus").innerHTML = "An unknown error occurred."
+                        break;
+                }
+            }
+        </script>
+        <!--<script language="JavaScript" TYPE="text/javascript">
             var nrIntervals = 0;
 
             function deg2rad(deg) {
@@ -303,59 +346,66 @@
                     + '</div>';
                 }
             }
-        </script>
+        </script>-->
     </head>
     <body>
-        <h2 style="margin: 0px">Dichtstbijzijnde locatie</h2>
-        Startlocatie:
-        <input type="text" disabled id="latstart" style="width:64px" value="52.09076">°,
-        <input type="text" disabled id="lonstart" style="width:64px" value="5.12173">°
+        <h1 style="margin: 0px">Droplocatie locatie</h1>
+        <h3 style="margin: 10px 0px 10px 0px">Huidige locatie</h3>
+        <input type="radio" name="startCrds" value="automatic" id="automatic" onclick="javascript:updateRadio('startCrds')" checked="checked">
+        <label for="automatic">
+            <button onclick="javascript:getLocation()" class="automatic">Vraag huidige locatie automatisch op</button>
+            (<input type="text" disabled style="width:54px" value="0.00000" id="lat_automatic">°,
+            <input type="text" disabled style="width:54px" value="0.00000" id="lon_automatic">°)
+            <i style="color: red" id="geolocStatus"></i>
+        </label>
         <br>
-        <i>(het midden van het Domplein)</i>
-        <br><br>
-
-        <input type="checkbox" value="0" id="online">
-        <label for="online"></label>Reverse geocoding (vereist internettoegang)</label>
-        <br><br>
-
-        Notatie van coördinaten: <i style="color: red">(let op: verwijdert reeds ingevoerde data)</i><br>
-        <input type="radio" onclick="javascript:crdUp()" id="2crd" name="ncrd" value="2crd" checked="checked">
-        <label for="2crd">
-            <input type="text" disabled style="width:54px" value="0.00000">°,
-            <input type="text" disabled style="width:54px" value="0.00000">°
-        </label><br>
-        <input type="radio" onclick="javascript:crdDown()" id="6crd" name="ncrd" value="6crd">
-        <label for="6crd">
-            <input type="text" disabled style="width:18px" value="0">°
-            <input type="text" disabled style="width:18px" value="0">’
-            <input type="text" disabled style="width:36px" value="0.00">”
-            <select disabled id="latpol">
+        <input type="radio" name="startCrds" value="decimal" id="decimal" onclick="javascript:updateRadio('startCrds')">
+        <label for="decimal">
+            <input type="text" disabled style="width:54px" value="0.00000" id="lat_decimal" class="decimal">°,
+            <input type="text" disabled style="width:54px" value="0.00000" id="lon_decimal" class="decimal">°
+        </label>
+        <br>
+        <input type="radio" name="startCrds" value="degminsec" id="degminsec" onclick="javascript:updateRadio('startCrds')">
+        <label for="degminsec">
+            <input type="text" disabled style="width:18px" value="0" id="lat_deg" class="degminsec">°
+            <input type="text" disabled style="width:18px" value="0" id="lat_min" class="degminsec">’
+            <input type="text" disabled style="width:36px" value="0.00" id="lat_sec" class="degminsec">”
+            <select disabled id="latpol" class="degminsec">
                 <option value="N">N</option>
                 <option value="S">S</option>
             </select>,
-            <input type="text" disabled style="width:18px" value="0">°
-            <input type="text" disabled style="width:18px" value="0">’
-            <input type="text" disabled style="width:36px" value="0.00">”
-            <select disabled id="lonpol">
+            <input type="text" disabled style="width:18px" value="0" id="lon_deg" class="degminsec">°
+            <input type="text" disabled style="width:18px" value="0" id="lon_min" class="degminsec">’
+            <input type="text" disabled style="width:36px" value="0.00" id="lon_sec" class="degminsec">”
+            <select disabled id="lonpol" class="degminsec">
                 <option value="E">E</option>
                 <option value="W">W</option>
             </select>
         </label>
         <br><br>
 
-        Eindlocatie:<br>
-        <div id="crd0">
-            <input type="text" placeholder="0.00000" style="width:128px" id="lat1">°,
-            <input type="text" placeholder="0.00000" style="width:128px" id="lon1">°
-        </div><br>
-
-        <div id="crd_plus">
-            <button onclick="javascript:addPenaltyCrds()">Voeg penaltytraject toe</button> <i style="color: red">(let op: verwijdert reeds ingevoerde data)</i><br>
-        </div><br>
-
-        <button onclick="javascript:showResult()">Bereken</button>
+        <h3 style="margin: 10px 0px 10px 0px">Berekening droplocatie</h3>
+        Selecteer een set van coördinaten:
+        <select id="crdSet">
+        </select>
+        <br><br>
+        <input type="radio" name="distCalcMethod" value="straight" id="straight" onclick="javascript:updateRadio('distCalcMethod')" checked="checked">
+        <label for="straight">Bereken afstand hemelsbreed (offline calculatie)</label>
         <br>
+        <input type="radio" name="distCalcMethod" value="car" id="car" onclick="javascript:updateRadio('distCalcMethod')">
+        <label for="car">Bereken rij-afstand voor auto met Bing (online calculatie)</label>
+        <br><br>
+        <input type="radio" name="selectionMethod" value="nearest" id="nearest" onclick="javascript:updateRadio('selectionMethod')" checked="checked">
+        <label for="nearest">Zoek dichtstbijzijnde locatie</label>
+        <br>
+        <input type="radio" name="selectionMethod" value="random" id="random" onclick="javascript:updateRadio('selectionMethod')">
+        <label for="random">Zoek willekeurige locatie binnen een straal van <input type="text" disabled style="width:36px" value="50" id="radius" class="random"> km</label>
+        <br><br>
 
-        <p id="result">Voer de vereiste coördinaten in.</p>
+        <h3 style="margin: 10px 0px 10px 0px">Droplocatie</h3>
+        <button onclick="javascript:showResult()">Zoek droploatie</button>
+        <br>
+        <p id="result">Vul alle vereiste gegevens in.</p>
+        <button onclick="javascript:copyResult()">Copy result to clipboard</button>
     </body>
 </html>
