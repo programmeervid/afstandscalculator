@@ -16,6 +16,8 @@
             }
 
             function getLocation() {
+                document.getElementById("geolocStatus").innerHTML = "Geolocatie proberen...";
+                document.getElementById("geolocStatus").style.color = "#000000";
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition, showError);
                 } else {
