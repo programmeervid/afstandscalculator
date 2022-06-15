@@ -24,8 +24,8 @@
             }
 
             function showPosition(position) {
-                document.getElementById("lat_automatic").innerHTML = position.coords.latitude;
-                document.getElementById("lon_automatic").innerHTML = position.coords.longitude;
+                document.getElementById("lat_automatic").value = position.coords.latitude;
+                document.getElementById("lon_automatic").value = position.coords.longitude;
                 document.getElementById("geolocStatus").innerHTML = "Geolocation successful.";
                 document.getElementById("geolocStatus").style.color = "#00ff00";
             }
