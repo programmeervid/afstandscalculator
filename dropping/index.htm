@@ -26,9 +26,12 @@
             function showPosition(position) {
                 document.getElementById("lat_automatic").innerHTML = position.coords.latitude;
                 document.getElementById("lon_automatic").innerHTML = position.coords.longitude;
+                document.getElementById("geolocStatus").innerHTML = "Geolocation successful.";
+                document.getElementById("geolocStatus").style.color = "#00ff00";
             }
 
             function showError(error) {
+                document.getElementById("geolocStatus").style.color = "#ff0000";
                 switch(error.code) {
                     case error.PERMISSION_DENIED:
                         document.getElementById("geolocStatus").innerHTML = "User denied the request for Geolocation."
@@ -356,7 +359,7 @@
             <button onclick="javascript:getLocation()" class="automatic">Vraag huidige locatie automatisch op</button>
             (<input type="text" disabled style="width:54px" value="0.00000" id="lat_automatic">°,
             <input type="text" disabled style="width:54px" value="0.00000" id="lon_automatic">°)
-            <i style="color: red" id="geolocStatus"></i>
+            <i id="geolocStatus"></i>
         </label>
         <br>
         <input type="radio" name="startCrds" value="decimal" id="decimal" onclick="javascript:updateRadio('startCrds')">
