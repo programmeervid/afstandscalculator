@@ -48,7 +48,7 @@
                 document.getElementById("geolocStatus").innerHTML = "Retrieving coordinates...";
                 document.getElementById("geolocStatus").style.color = "#000000";
                 if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                    navigator.geolocation.getCurrentPosition(showPosition, showError, {enableHighAccuracy: true, maximumAge: 0});
                 } else {
                     document.getElementById("geolocStatus").innerHTML = "Geolocation is not supported by this browser.";
                 }
