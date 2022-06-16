@@ -111,7 +111,7 @@
                 request.onreadystatechange = function () {
                     if (this.readyState === 4) {
                         if (this.status == 200) {
-                            var distance = Math.round(JSON.parse(this.responseText).routes[0].summary.distance/100)/10;
+                            var distance = Math.round(JSON.parse(this.responseText).routes[0].summary.distance/10)/100;
                             var duration = Math.round(JSON.parse(this.responseText).routes[0].summary.duration/60);
                             document.getElementById("resultDistance").innerHTML = distance + " km, ongeveer " + duration + " minuten rijden.";
                         } else {
@@ -182,7 +182,7 @@
                                     document.getElementById("result").innerHTML = "<ol><li value='" + location.index + "'>(<b style='font-weight: normal;' id='copypart'>" + location.coordinates[0] + ", "
                                                                                 + location.coordinates[1] + "</b>)" + " <button onclick='javascript:copyResult()'>"
                                                                                 + "Copy to clipboard</button> <i style='font-weight: bold;' id='copyStatus'></i></li></ol>";
-                                    var distance = Math.round(location.distance/100)/10;
+                                    var distance = Math.round(location.distance/10)/100;
                                     var duration = Math.round(location.duration/60);
                                     document.getElementById("resultDistance").innerHTML = distance + " km, ongeveer " + duration + " minuten rijden.";
                                     document.getElementById("distanceLocation").hidden = false;
@@ -221,7 +221,7 @@
                     document.getElementById("result").innerHTML = "<ol><li value='" + location.index + "'>(<b style='font-weight: normal;' id='copypart'>" + location.coordinates[0] + ", "
                                                                     + location.coordinates[1] + "</b>)" + " <button onclick='javascript:copyResult()'>"
                                                                     + "Copy to clipboard</button> <i style='font-weight: bold;' id='copyStatus'></i></li></ol>";
-                    document.getElementById("resultDistance").innerHTML = Math.round(location.distance*10)/10 + " km hemelsbreed.";
+                    document.getElementById("resultDistance").innerHTML = Math.round(location.distance*100)/100 + " km hemelsbreed.";
                     document.getElementById("distanceLocation").hidden = false;
                 } else {
                     document.getElementById("result").innerHTML = "<b style='color:red;'>Error: geen locaties beschikbaar binnen een straal van " + radius + " km.</b>";
@@ -253,7 +253,7 @@
                 var [lat2, lon2] = latestEndCrds;
                 switch(document.querySelector('input[name="distCalcMethod"]:checked').value) {
                     case "straight":
-                        document.getElementById("resultDistance").innerHTML = Math.round(getStraightDist(lat1, lon1, lat2, lon2)*10)/10 + " km hemelsbreed.";
+                        document.getElementById("resultDistance").innerHTML = Math.round(getStraightDist(lat1, lon1, lat2, lon2)*100)/100 + " km hemelsbreed.";
                         break;
                     case "car":
                         writeCarDist(lat1, lon1, lat2, lon2);
