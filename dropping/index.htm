@@ -5,7 +5,7 @@
         <script language="JavaScript" TYPE="text/javascript">
             let crdSets = {
                 "Testlocaties":
-                [[52.506522, 6.2729511], [51.9141144, 5.6522236], [52.1944728, 4.9326191], [52.2281322, 6.3553486], [52.473074, 5.7181416], [51.9907573, 5.3768009], [52.0080899, 5.777327], [52.0520254, 5.5280747], [52.0376387, 5.6323882]]
+                [[52.473074, 5.7181416], [52.0401663, 5.6353869], [52.506522, 6.2729511], [51.9141144, 5.6522236], [52.0520254, 5.5280747], [52.1944728, 4.9326191], [51.9907573, 5.3768009], [52.0080899, 5.777327], [52.2281322, 6.3553486]]
                 ,
                 "Testlocaties 2":
                 [[48.9058572, 2.3151461], [48.8611555, 2.4126498], [48.8372078, 2.2712008], [48.841497, 2.3432986], [48.8006375, 2.4274346], [48.7743983, 2.1678826]]
@@ -101,9 +101,18 @@
             return Math.round(d*100)/100;
             }
 
-            function writeCarDist(lat1, lon1, lat2, lon2) {
+            function writeApiDist(lat1, lon1, lat2, lon2, distCalcMethod) {
                 let request = new XMLHttpRequest();
-                request.open('POST', "https://api.openrouteservice.org/v2/directions/driving-car");
+                switch(distCalcMethod) {
+                    case "car":
+                        request.open('POST', "https://api.openrouteservice.org/v2/directions/driving-car");
+                        var act = "rijden";
+                        break;
+                    case "walk":
+                        request.open('POST', "https://api.openrouteservice.org/v2/directions/foot-walking");
+                        var act = "lopen";
+                        break;
+                }
                 request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
                 request.setRequestHeader('Content-Type', 'application/json');
                 request.setRequestHeader('Authorization', '5b3ce3597851110001cf6248f25e8d0c35d24fd7b756e2658c85a488');
@@ -113,7 +122,7 @@
                         if (this.status == 200) {
                             var distance = Math.round(JSON.parse(this.responseText).routes[0].summary.distance/10)/100;
                             var duration = Math.round(JSON.parse(this.responseText).routes[0].summary.duration/60);
-                            document.getElementById("resultDistance").innerHTML = distance + " km, ongeveer " + duration + " minuten rijden.";
+                            document.getElementById("resultDistance").innerHTML = distance + " km, ongeveer " + duration + " minuten " + act + ".";
                         } else {
                             document.getElementById("resultDistance").innerHTML = "<b style='color:red;'>Error: kan geen route voor de auto ophalen.</b>";
                         }
@@ -147,11 +156,20 @@
                 return [lat1, lon1];
             }
 
-            function writeCarNearestCrds(latStart, lonStart, crdSet, selectionMethod, radius) {
+            function writeApiNearestCrds(latStart, lonStart, crdSet, selectionMethod, distCalcMethod, radius) {
                 var locations = [[latStart,lonStart]].concat(crdSet);
                 var locationsString = "[" + locations.map(x => "[" + x.reverse().toString() + "]").toString() + "]";
                 let request = new XMLHttpRequest();
-                request.open('POST', "https://api.openrouteservice.org/v2/matrix/driving-car");
+                switch(distCalcMethod) {
+                    case "car":
+                        request.open('POST', "https://api.openrouteservice.org/v2/matrix/driving-car");
+                        var act = "rijden";
+                        break;
+                    case "walk":
+                        request.open('POST', "https://api.openrouteservice.org/v2/matrix/foot-walking");
+                        var act = "lopen";
+                        break;
+                }
                 request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
                 request.setRequestHeader('Content-Type', 'application/json');
                 request.setRequestHeader('Authorization', '5b3ce3597851110001cf6248f25e8d0c35d24fd7b756e2658c85a488');
@@ -184,7 +202,7 @@
                                                                                 + "Copy to clipboard</button> <i style='font-weight: bold;' id='copyStatus'></i></li></ol>";
                                     var distance = Math.round(location.distance/10)/100;
                                     var duration = Math.round(location.duration/60);
-                                    document.getElementById("resultDistance").innerHTML = distance + " km, ongeveer " + duration + " minuten rijden.";
+                                    document.getElementById("resultDistance").innerHTML = distance + " km, ongeveer " + duration + " minuten " + act + ".";
                                     document.getElementById("distanceLocation").hidden = false;
                                 } else {
                                     document.getElementById("result").innerHTML = "<b style='color:red;'>Error: kan geen route voor de auto ophalen.</b>";
@@ -232,12 +250,13 @@
             function writeEndCrds(latStart, lonStart, selectionMethod) {
                 var crdSet = structuredClone(crdSets[document.getElementById("crdSet").value]);
                 var radius = document.getElementById("radius").value;
-                switch(document.querySelector('input[name="distCalcMethod"]:checked').value) {
+                var distCalcMethod= document.querySelector('input[name="distCalcMethod"]:checked').value;
+                switch(distCalcMethod) {
                     case "straight":
                         writeStraightNearestCrds(latStart, lonStart, crdSet, selectionMethod, radius);
                         break;
-                    case "car":
-                        writeCarNearestCrds(latStart, lonStart, crdSet, selectionMethod, radius);
+                    default:
+                        writeApiNearestCrds(latStart, lonStart, crdSet, selectionMethod, distCalcMethod, radius);
                         break;
                 }
             }
@@ -251,12 +270,13 @@
             function recomputeDist() {
                 var [lat1, lon1] = getStartCrds(document.querySelector('input[name="startCrds"]:checked').value);
                 var [lat2, lon2] = latestEndCrds;
-                switch(document.querySelector('input[name="distCalcMethod"]:checked').value) {
+                var distCalcMethod = document.querySelector('input[name="distCalcMethod"]:checked').value;
+                switch(distCalcMethod) {
                     case "straight":
                         document.getElementById("resultDistance").innerHTML = getStraightDist(lat1, lon1, lat2, lon2) + " km hemelsbreed.";
                         break;
-                    case "car":
-                        writeCarDist(lat1, lon1, lat2, lon2);
+                    default:
+                        writeApiDist(lat1, lon1, lat2, lon2, distCalcMethod);
                         break;
                 }
             }
@@ -318,6 +338,9 @@
         <br>
         <input type="radio" name="distCalcMethod" value="car" id="car" onclick="javascript:updateRadio('distCalcMethod')">
         <label for="car">Bereken rij-afstand voor auto (online calculatie) [© openrouteservice.org by HeiGIT]</label>
+        <br>
+        <input type="radio" name="distCalcMethod" value="walk" id="walk" onclick="javascript:updateRadio('distCalcMethod')">
+        <label for="walk">Bereken loop-afstand voor benenwagen (online calculatie) [© openrouteservice.org by HeiGIT]</label>
         <br><br>
         <input type="radio" name="selectionMethod" value="nearest" id="nearest" onclick="javascript:updateRadio('selectionMethod')" checked="checked">
         <label for="nearest">Zoek dichtstbijzijnde locatie</label>
