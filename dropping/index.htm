@@ -98,7 +98,7 @@
                 ; 
             var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
             var d = R * c; // Distance in km
-            return Math.round(d*10)/10;
+            return Math.round(d*100)/100;
             }
 
             function writeCarDist(lat1, lon1, lat2, lon2) {
@@ -253,7 +253,7 @@
                 var [lat2, lon2] = latestEndCrds;
                 switch(document.querySelector('input[name="distCalcMethod"]:checked').value) {
                     case "straight":
-                        document.getElementById("resultDistance").innerHTML = Math.round(getStraightDist(lat1, lon1, lat2, lon2)*100)/100 + " km hemelsbreed.";
+                        document.getElementById("resultDistance").innerHTML = getStraightDist(lat1, lon1, lat2, lon2) + " km hemelsbreed.";
                         break;
                     case "car":
                         writeCarDist(lat1, lon1, lat2, lon2);
