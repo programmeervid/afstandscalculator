@@ -4,14 +4,14 @@
         <meta charset="utf-8">
         <script language="JavaScript" TYPE="text/javascript">
             let crdSets = {
-                "Testlocaties":
-                [[52.473074, 5.7181416], [52.0401663, 5.6353869], [52.506522, 6.2729511], [51.9141144, 5.6522236], [52.0520254, 5.5280747], [52.1944728, 4.9326191], [51.9907573, 5.3768009], [52.0080899, 5.777327], [52.2281322, 6.3553486]]
-                ,
-                "Testlocaties 2":
-                [[48.9058572, 2.3151461], [48.8611555, 2.4126498], [48.8372078, 2.2712008], [48.841497, 2.3432986], [48.8006375, 2.4274346], [48.7743983, 2.1678826]]
-                ,
                 "Alpen":
-                []
+                [[46.66576, 12.08449], [47.13464, 12.28248], [47.09663, 12.23036], [46.98664, 12.10777], [46.84258, 12.16424], [47.09417, 12.04887]]
+                ,
+                "Alpen 2":
+                [[47.03104, 10.15493], [46.84258, 12.16424], [47.09417, 12.04887], [47.13464, 12.28248], [46.5942, 11.05305], [47.09663, 12.23036], [46.98664, 12.10777], [46.66576, 12.08449]]
+                ,
+                "Alpen 3":
+                [[45.35355, 7.51838], [47.09663, 12.23036], [46.98664, 12.10777], [46.55912, 11.09589], [47.13464, 12.28248], [46.55589, 10.90191], [45.38054, 7.57602], [46.32581, 10.01666], [45.59605, 7.93376], [46.31382, 9.77999], [47.08024, 13.30673], [47.03104, 10.15493], [46.95577, 11.7914], [46.99413, 11.66016], [46.49999, 8.99738], [46.42364, 10.16781], [46.84258, 12.16424], [46.86517, 10.71314], [46.41805, 9.132], [46.66576, 12.08449], [46.71551, 10.68733], [46.5942, 11.05305], [47.09417, 12.04887]]
                 ,
                 "Scandinavië":
                 []
@@ -281,8 +281,18 @@
                 }
             }
             
+            function copyStartCrds() {
+                navigator.clipboard.writeText("huidige locatie: " + Math.round(document.getElementById("lat_automatic").value*100000)/100000 + ", " + Math.round(document.getElementById("lon_automatic").value*100000)/100000).then(function() {
+                    document.getElementById("copyStatus1").innerHTML = "Copying to clipboard was successful.";
+                    document.getElementById("copyStatus1").style.color = "#00ff00";
+                }, function(err) {
+                    document.getElementById("copyStatus1").innerHTML = "Could not copy text: " + err + ".";
+                    document.getElementById("copyStatus1").style.color = "#ff0000";
+                });
+            }
+
             function copyResult() {
-                navigator.clipboard.writeText(document.getElementById("copypart").innerHTML).then(function() {
+                navigator.clipboard.writeText("droplocatie: " + document.getElementById("copypart").innerHTML).then(function() {
                     document.getElementById("copyStatus").innerHTML = "Copying to clipboard was successful.";
                     document.getElementById("copyStatus").style.color = "#00ff00";
                 }, function(err) {
@@ -301,6 +311,8 @@
             (<input type="text" disabled style="width:54px" value="0.00000" id="lat_automatic">°,
             <input type="text" disabled style="width:54px" value="0.00000" id="lon_automatic">°)
             <i style="font-weight: bold;" id="geolocStatus"></i>
+            <button onclick="javascript:copyStartCrds()">Copy to clipboard</button>
+            <i style="font-weight: bold;" id="copyStatus1"></i>
         </label>
         <br>
         <input type="radio" name="startCrds" value="decimal" id="decimal" onclick="javascript:updateRadio('startCrds')">
@@ -337,7 +349,7 @@
         <label for="straight">Bereken afstand hemelsbreed (offline calculatie)</label>
         <br>
         <input type="radio" name="distCalcMethod" value="car" id="car" onclick="javascript:updateRadio('distCalcMethod')">
-        <label for="car">Bereken rij-afstand voor auto (online calculatie) [© openrouteservice.org by HeiGIT]</label>
+        <label for="car">Bereken rij-afstand voor auto (online calculatie) [© openrouteservice.org by HeiGIT] <b style="color:red;">(LET OP: werkt mogelijk niet met bepaalde locaties)</b></label>
         <br>
         <input type="radio" name="distCalcMethod" value="walk" id="walk" onclick="javascript:updateRadio('distCalcMethod')">
         <label for="walk">Bereken loop-afstand voor benenwagen (online calculatie) [© openrouteservice.org by HeiGIT]</label>
