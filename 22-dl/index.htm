@@ -295,7 +295,7 @@
             }
 
             function copyResult() {
-                navigator.clipboard.writeText("droplocatie: " + document.getElementById("copypart").innerHTML).then(function() {
+                navigator.clipboard.writeText("locatie: " + document.getElementById("copypart").innerHTML).then(function() {
                     document.getElementById("copyStatus").innerHTML = "Copying to clipboard was successful.";
                     document.getElementById("copyStatus").style.color = "#00ff00";
                 }, function(err) {
@@ -306,7 +306,7 @@
         </script>
     </head>
     <body onload="javascript:updateCrdSets()">
-        <h1 style="margin: 0px">Droplocatie</h1>
+        <h1 style="margin: 0px">22-dl</h1>
         <h3 style="margin: 10px 0px 10px 0px">Huidige locatie</h3>
         <input type="radio" name="startCrds" value="automatic" id="automatic" onclick="javascript:updateRadio('startCrds')" checked="checked">
         <label for="automatic">
@@ -343,7 +343,7 @@
         </label>
         <br><br>
 
-        <h3 style="margin: 10px 0px 10px 0px">Berekening droplocatie</h3>
+        <h3 style="margin: 10px 0px 10px 0px">Berekening locatie</h3>
         Selecteer een set van coördinaten:
         <select id="crdSet">
         </select>
@@ -364,15 +364,15 @@
         <label for="random">Zoek willekeurige locatie binnen een straal van <input type="text" disabled style="width:36px" value="50" id="radius" class="random"> km</label>
         <br><br>
 
-        <h3 style="margin: 10px 0px 10px 0px">Droplocatie</h3>
-        <button onclick="javascript:showResult()">Zoek droplocatie</button>
+        <h3 style="margin: 10px 0px 10px 0px">locatie</h3>
+        <button onclick="javascript:showResult()">Zoek locatie</button>
         <br>
         <div hidden id="initHidden">
             <p id="result">Vul alle vereiste gegevens in.</p>
             <div id="distanceLocation">
-                <h3 style="margin: 10px 0px 10px 0px">Afstand tot droplocatie</h3>
+                <h3 style="margin: 10px 0px 10px 0px">Afstand tot locatie</h3>
                 <p id="resultDistance">Vul alle vereiste gegevens in.</p>
-                <button onclick="javascript:recomputeDist()">Hercalculeer afstand tot droplocatie</button>
+                <button onclick="javascript:recomputeDist()">Hercalculeer afstand tot locatie</button>
             </div>
         </div>
     </body>
