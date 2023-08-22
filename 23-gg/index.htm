@@ -68,7 +68,7 @@
                 document.getElementById("task4").innerHTML = "Raak een plaatsnaambordje aan dat begint met de letter <b>" + getRandomElem(taskSets.plaatsnaamletters) + "</b>.";
                 document.getElementById("task5").innerHTML = "Reis met een <b>" + getRandomElem(taskSets.vervoermiddelen) + "</b>. Je moet minstens 1 halte met dit vervoermiddel afleggen.";
                 //document.getElementById("task6").innerHTML = getRandomElem(taskSets.overig);
-                document.getElementById("task-bonus").innerHTML = "BONUS: <b>fotografeer de achtervolger</b>. De achtervolger moet herkenbaar in beeld zijn.";
+                //document.getElementById("task-bonus").innerHTML = "BONUS: <b>fotografeer de achtervolger</b>. De achtervolger moet herkenbaar in beeld zijn.";
             }
 
             function copyResult() {
@@ -96,7 +96,7 @@
                 <li id="task4">Opdracht 4</li>
                 <li id="task5">Opdracht 5</li>
                 <li hidden id="task6">Opdracht 6</li>
-                <li id="task-bonus">Bonusopdracht</li>
+                <li hidden id="task-bonus">Bonusopdracht</li>
             </ol>
             <br>
             <button class="automatic" onclick="javascript:copyResult()">Copy to clipboard</button>
