@@ -25,24 +25,36 @@
         <script language="JavaScript" TYPE="text/javascript">
             let taskSets = {
                 "provinciegrenzen":
-                ["Zeeland met Noord-Brabant", "Zeeland met Zuid-Holland", "Zuid-Holland met Noord-Holland", "Zuid-Holland met Gelderland", "Noord-Holland met Flevoland", "Noord-Holland met Utrecht", "Utrecht met Zuid-Holland", "Utrecht met Gelderland", "Utrecht met Flevoland", "Noord-Brabant met Zuid-Holland", "Limburg met Gelderland", "Limburg met Noord-Brabant", "Gelderland met Overijssel", "Gelderland met Flevoland", "Flevoland met Overijssel", "Flevoland met Friesland", "Overijssel met Friesland", "Overijssel met Drenthe", "Drenthe met Friesland", "Friesland met Noord-Holland", "Groningen met Drenthe", "Groningen met Friesland"]
+                ["Zeeland met Noord-Brabant", "Zeeland met Zuid-Holland", "Zuid-Holland met Noord-Holland", "Zuid-Holland met Gelderland", "Noord-Holland met Flevoland", "Noord-Holland met Utrecht", "Utrecht met Zuid-Holland", "Utrecht met Gelderland", "Noord-Brabant met Gelderland", "Noord-Brabant met Zuid-Holland", "Limburg met Gelderland", "Limburg met Noord-Brabant", "Gelderland met Overijssel", "Gelderland met Flevoland", "Flevoland met Overijssel", "Flevoland met Friesland", "Overijssel met Drenthe", "Drenthe met Friesland", "Friesland met Noord-Holland", "Groningen met Drenthe", "Groningen met Friesland"]
                 ,
                 "landmarks":
-                ["Sint Servaasbrug, Maastricht", "Monument Deltawerken, Uitkijkpunt Oosterscheldekering (“Hier gaan over het tij” gedichtsteen)", "Domtoren, Utrecht", "Euromast, Rotterdam", "Naturalis Museum, Leiden", "Monument op De Dam, Amsterdam", "Philips Stadion, Eindhoven", "De Citadel, ‘s Hertogenbosch", "Stevenskerk, Nijmegen", "Fries Museum, Leeuwarden", "Kasteel Radboud, Medemblik", "Vuurtoren van Urk, Urk", "Torentje van Drienerlo, Enschede (Rand van de vijver)", "Anti-kernwapenmonument, Groningen", "Schouwburg Ogterop, Meppel", "Tongerlohuys Museum, Roosendaal", "Spoorwegwatertoren, Deventer", "Bevrijdingsmonument, Venlo (In het Rosarium)", "Monument voor Tante Riek, Winterswijk", "Kunstwerk Olifant, Emmen"]
+                ["Monument Deltawerken, Uitkijkpunt Oosterscheldekering (“Hier gaan over het tij” gedichtsteen)", "Sint Servaasbrug, Maastricht", "Domtoren, Utrecht", "Euromast, Rotterdam", "Naturalis Museum, Leiden", "Monument op De Dam, Amsterdam", "Philips Stadion, Eindhoven", "De Citadel, ‘s Hertogenbosch", "Stevenskerk, Nijmegen", "Fries Museum, Leeuwarden", "Kasteel Radboud, Medemblik", "Vuurtoren van Urk, Urk", "Torentje van Drienerlo, Enschede (Rand van de vijver)", "Anti-kernwapenmonument, Groningen", "Schouwburg Ogterop, Meppel", "Tongerlohuys Museum, Roosendaal", "Spoorwegwatertoren, Deventer", "Bevrijdingsmonument, Venlo (In het Rosarium)", "Monument voor Tante Riek, Winterswijk"]
                 ,
                 "snacks":
-                ["Groentekroket", "Bamiblok, -bal of schijf", "Berehap", "Sitostick", "Nasischijf", "Kipcorn", "Mexicano", "Patatje oorlog"]
+                ["Groentekroket", "Bamiblok, -bal of schijf", "Berehap", "Nasischijf", "Kipcorn", "Mexicano", "Patatje oorlog"]
                 ,
                 "plaatsnaamletters":
-                ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "V", "W", "Y", "Z"]
+                ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "O", "P", "R", "S", "T", "U", "V", "W", "Y", "Z"]
                 ,
                 "vervoermiddelen":
-                ["ferry", "trolleybus", "buurtbus", "tram", "metro"]
+                ["ferry", "trolleybus", "buurtbus", "tram"]
                 ,
                 "overig":
                 ["Reis met <b>5 verschillende vervoerders</b>. De primaire merknaam op de buitenkant van het vervoermiddel definieert de vervoerder.",
                 "<b>Koop iets op Marktplaats</b>."]
             }
+            /* REMOVED:
+                provinciegrenzen:
+                    "Overijssel met Friesland"
+                landmarks:
+                    "Kunstwerk Olifant, Emmen"
+                snacks:
+                    "Sitostick"
+                plaatsnaamletters:
+                    "N"
+                vervoermiddelen:
+                    "metro"
+            */
 
             function getRandomElem(arr) {
                 return arr[Math.floor(Math.random()*arr.length)]
@@ -52,10 +64,10 @@
                 document.getElementById("initHidden").hidden = false;
                 document.getElementById("task1").innerHTML = "Overschrijd de grens van de provincie <b>" + getRandomElem(taskSets.provinciegrenzen) + "</b>.";
                 document.getElementById("task2").innerHTML = "Raak <b>" + getRandomElem(taskSets.landmarks) + "</b> aan.";
-                document.getElementById("task3").innerHTML = "Haal een <b>" + getRandomElem(taskSets.snacks) + "</b> en eet deze helemaal op.";
+                //document.getElementById("task3").innerHTML = "Haal een <b>" + getRandomElem(taskSets.snacks) + "</b> en eet deze helemaal op.";
                 document.getElementById("task4").innerHTML = "Raak een plaatsnaambordje aan dat begint met de letter <b>" + getRandomElem(taskSets.plaatsnaamletters) + "</b>.";
                 document.getElementById("task5").innerHTML = "Reis met een <b>" + getRandomElem(taskSets.vervoermiddelen) + "</b>. Je moet minstens 1 halte met dit vervoermiddel afleggen.";
-                document.getElementById("task6").innerHTML = getRandomElem(taskSets.overig);
+                //document.getElementById("task6").innerHTML = getRandomElem(taskSets.overig);
                 document.getElementById("task-bonus").innerHTML = "BONUS: <b>fotografeer de achtervolger</b>. De achtervolger moet herkenbaar in beeld zijn.";
             }
 
@@ -75,15 +87,15 @@
         <button onclick="javascript:showResult()">Verkrijg opdrachten</button>
         <br><br>
         <div hidden id="initHidden">
-            Voer tenminste <b>6</b> van de volgende opdrachten uit om te winnen:
+            Voer tenminste <b>4</b> van de volgende opdrachten uit om te winnen:
             <br><br>
             <ol>
                 <li id="task1">Opdracht 1</li>
                 <li id="task2">Opdracht 2</li>
-                <li id="task3">Opdracht 3</li>
+                <li hidden id="task3">Opdracht 3</li>
                 <li id="task4">Opdracht 4</li>
                 <li id="task5">Opdracht 5</li>
-                <li id="task6">Opdracht 6</li>
+                <li hidden id="task6">Opdracht 6</li>
                 <li id="task-bonus">Bonusopdracht</li>
             </ol>
             <br>
