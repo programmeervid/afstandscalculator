@@ -25,41 +25,110 @@
         <script language="JavaScript" TYPE="text/javascript">
             let taskSets = {
                 "provinciegrenzen":
-                ["Zeeland met Zuid-Holland", "Zuid-Holland met Noord-Holland", "Zuid-Holland met Gelderland", "Noord-Holland met Flevoland", "Noord-Holland met Utrecht", "Utrecht met Zuid-Holland", "Utrecht met Gelderland", "Noord-Brabant met Gelderland", "Noord-Brabant met Zuid-Holland", "Limburg met Gelderland", "Limburg met Noord-Brabant", "Gelderland met Overijssel", "Gelderland met Flevoland", "Flevoland met Overijssel", "Flevoland met Friesland", "Overijssel met Drenthe", "Drenthe met Friesland", "Friesland met Noord-Holland", "Groningen met Drenthe", "Groningen met Friesland"]
+                [
+                    "Zeeland met Zuid-Holland",
+                    //"Zeeland met Noord-Brabant", //gg5
+                    "Zuid-Holland met Noord-Holland",
+                    "Zuid-Holland met Gelderland",
+                    "Noord-Holland met Flevoland",
+                    "Noord-Holland met Utrecht",
+                    "Utrecht met Zuid-Holland",
+                    "Utrecht met Gelderland",
+                    "Noord-Brabant met Gelderland",
+                    "Noord-Brabant met Zuid-Holland",
+                    "Limburg met Gelderland",
+                    "Limburg met Noord-Brabant",
+                    "Gelderland met Overijssel",
+                    "Gelderland met Flevoland",
+                    "Flevoland met Overijssel",
+                    "Flevoland met Friesland",
+                    "Overijssel met Drenthe",
+                    //"Overijssel met Friesland", //gg3
+                    "Drenthe met Friesland",
+                    "Friesland met Noord-Holland",
+                    "Groningen met Drenthe",
+                    "Groningen met Friesland"
+                ]
                 ,
                 "landmarks":
-                ["Monument Deltawerken, Uitkijkpunt Oosterscheldekering (“Hier gaan over het tij” gedichtsteen)", "Sint Servaasbrug, Maastricht", "Domtoren, Utrecht", "Euromast, Rotterdam", "Naturalis Museum, Leiden", "Monument op De Dam, Amsterdam", "Philips Stadion, Eindhoven", "De Citadel, ‘s Hertogenbosch", "Stevenskerk, Nijmegen", "Fries Museum, Leeuwarden", "Kasteel Radboud, Medemblik", "Vuurtoren van Urk, Urk", "Torentje van Drienerlo, Enschede (Rand van de vijver)", "Schouwburg Ogterop, Meppel", "Spoorwegwatertoren, Deventer", "Bevrijdingsmonument, Venlo (In het Rosarium)", "Monument voor Tante Riek, Winterswijk"]
+                [
+                    "Sint Servaasbrug, Maastricht",
+                    "Monument Deltawerken, Uitkijkpunt Oosterscheldekering (“Hier gaan over het tij” gedichtsteen)",
+                    "Domtoren, Utrecht",
+                    "Euromast, Rotterdam",
+                    "Naturalis Museum, Leiden",
+                    "Monument op De Dam, Amsterdam",
+                    "Philips Stadion, Eindhoven",
+                    "De Citadel, ‘s Hertogenbosch",
+                    "Stevenskerk, Nijmegen",
+                    "Fries Museum, Leeuwarden",
+                    "Kasteel Radboud, Medemblik",
+                    "Vuurtoren van Urk, Urk",
+                    "Torentje van Drienerlo, Enschede (Rand van de vijver)",
+                    //"Anti-kernwapenmonument, Groningen", //gg5
+                    "Schouwburg Ogterop, Meppel",
+                    //"Tongerlohuys Museum, Roosendaal", //gg4
+                    "Spoorwegwatertoren, Deventer",
+                    "Bevrijdingsmonument, Venlo (In het Rosarium)",
+                    //"Kunstwerk Olifant, Emmen", //gg3
+                    "Monument voor Tante Riek, Winterswijk"
+                ]
                 ,
                 "snacks":
-                ["Groentekroket", "Bamiblok, -bal of schijf", "Berehap", "Nasischijf", "Kipcorn", "Mexicano", "Patatje oorlog"]
+                [
+                    "Groentekroket",
+                    "Bamiblok, -bal of schijf",
+                    "Berehap",
+                    "Nasischijf",
+                    //"Sitostick", //gg3
+                    "Kipcorn",
+                    "Mexicano",
+                    "Patatje oorlog"
+                ]
                 ,
                 "plaatsnaamletters":
-                ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "O", "R", "S", "T", "U", "V", "W", "Y", "Z"]
+                [
+                    "A",
+                    "B",
+                    "C",
+                    "D",
+                    "E",
+                    "F",
+                    "G",
+                    "H",
+                    "I",
+                    "J",
+                    "K",
+                    "L",
+                    "M",
+                    //"N", //gg3
+                    "O",
+                    //"P", //gg5
+                    "R",
+                    "S",
+                    "T",
+                    "U",
+                    "V",
+                    "W",
+                    "Y",
+                    "Z"
+                ]
                 ,
                 "vervoermiddelen":
-                ["ferry", "buurtbus", "tram"]
+                [
+                    "ferry",
+                    //"trolleybus", //gg5
+                    "buurtbus",
+                    //"metro", //gg3
+                    "tram"
+                ]
                 ,
                 "overig":
-                ["Reis met <b>5 verschillende vervoerders</b>. De primaire merknaam op de buitenkant van het vervoermiddel definieert de vervoerder.",
-                "<b>Koop iets op Marktplaats</b>."]
+                [
+                    "Reis met <b>5 verschillende vervoerders</b>. De primaire merknaam op de buitenkant van het vervoermiddel definieert de vervoerder.",
+                    "<b>Koop iets op Marktplaats</b>."
+                ]
             }
-            /* REMOVED:
-                provinciegrenzen:
-                    "Overijssel met Friesland",
-                    "Zeeland met Noord-Brabant"
-                landmarks:
-                    "Kunstwerk Olifant, Emmen",
-                    "Tongerlohuys Museum, Roosendaal",
-                    "Anti-kernwapenmonument, Groningen"
-                snacks:
-                    "Sitostick"
-                plaatsnaamletters:
-                    "N",
-                    "P"
-                vervoermiddelen:
-                    "metro",
-                    "trolleybus"
-            */
 
             function getRandomElem(arr) {
                 return arr[Math.floor(Math.random()*arr.length)]
