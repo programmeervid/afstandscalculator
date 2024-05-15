@@ -63,7 +63,7 @@
                     "Stevenskerk, Nijmegen",
                     "Fries Museum, Leeuwarden",
                     "Kasteel Radboud, Medemblik",
-                    "Vuurtoren van Urk, Urk",
+                    "Vuurtoren van Urk, Urk", // evt. vervangen met plek in Kampen indien te moeilijk voor zon- en feestdagen (of in het algemeen)
                     //"Torentje van Drienerlo, Enschede (Rand van de vijver)", //gg6
                     //"Anti-kernwapenmonument, Groningen", //gg5
                     "Schouwburg Ogterop, Meppel",
@@ -73,7 +73,7 @@
                     //"Kunstwerk Olifant, Emmen", //gg3
                     "Monument voor Tante Riek, Winterswijk"
                 ]
-                ,
+                /*,
                 "snacks":
                 [
                     "Groentekroket",
@@ -84,7 +84,7 @@
                     "Kipcorn",
                     "Mexicano",
                     "Patatje oorlog"
-                ]
+                ]*/
                 ,
                 "plaatsnaamletters":
                 [
@@ -115,23 +115,39 @@
                 ]
                 ,
                 "vervoermiddelen":
-                [
-                    //"ferry", //gg6
-                    //"trolleybus", //gg5
-                    "buurtbus",
-                    //"metro", //gg3
-                    "tram"
-                ]
-                ,
+                {
+                    "ferry": 1, //gg6
+                    "trolleybus": 1, //gg5
+                    //"buurtbus": 0, //te moeilijk, zijn er te weinig van + zijn vaak belbus of lijntaxi
+                    "metro": 1, //gg3
+                    "tram": 0
+                }
+                /*,
                 "overig":
                 [
                     "Reis met <b>5 verschillende vervoerders</b>. De primaire merknaam op de buitenkant van het vervoermiddel definieert de vervoerder.",
                     "<b>Koop iets op Marktplaats</b>."
-                ]
+                ]*/
             }
 
-            function getRandomElem(arr) {
-                return arr[Math.floor(Math.random()*arr.length)]
+            function getRandomElem(items) {
+                return items[Math.floor(Math.random()*items.length)];
+            }
+
+            function getRandomWeightedElem(items, weights) {
+                const cumulativeWeights = [];
+                for (let i = 0; i < weights.length; i += 1) {
+                    cumulativeWeights[i] = weights[i] + (cumulativeWeights[i - 1] || 0);
+                }
+
+                const maxCumulativeWeight = cumulativeWeights[cumulativeWeights.length - 1];
+                const randomNumber = maxCumulativeWeight * Math.random();
+
+                for (let itemIndex = 0; itemIndex < items.length; itemIndex += 1) {
+                    if (cumulativeWeights[itemIndex] >= randomNumber) {
+                        return items[itemIndex];
+                    }
+                }
             }
 
             function showResult() {
@@ -140,7 +156,9 @@
                 document.getElementById("task2").innerHTML = "Raak <b>" + getRandomElem(taskSets.landmarks) + "</b> aan.";
                 //document.getElementById("task3").innerHTML = "Haal een <b>" + getRandomElem(taskSets.snacks) + "</b> en eet deze helemaal op.";
                 document.getElementById("task4").innerHTML = "Raak een plaatsnaambordje aan dat begint met de letter <b>" + getRandomElem(taskSets.plaatsnaamletters) + "</b>.";
-                document.getElementById("task5").innerHTML = "Reis met een <b>" + getRandomElem(taskSets.vervoermiddelen) + "</b>. Je moet minstens 1 halte met dit vervoermiddel afleggen.";
+                let vmNames = Object.entries(taskSets.vervoermiddelen).map((e) => e[0])
+                let vmWeights = Object.entries(taskSets.vervoermiddelen).map((e) => 0.5/(e[1]**2+0.5))
+                document.getElementById("task5").innerHTML = "Reis met een <b>" + getRandomWeightedElem(vmNames, vmWeights) + "</b>. Je moet minstens 1 halte met dit vervoermiddel afleggen.";
                 //document.getElementById("task6").innerHTML = getRandomElem(taskSets.overig);
                 //document.getElementById("task-bonus").innerHTML = "BONUS: <b>fotografeer de achtervolger</b>. De achtervolger moet herkenbaar in beeld zijn.";
             }
