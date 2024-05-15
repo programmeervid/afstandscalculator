@@ -157,7 +157,7 @@
                 //document.getElementById("task3").innerHTML = "Haal een <b>" + getRandomElem(taskSets.snacks) + "</b> en eet deze helemaal op.";
                 document.getElementById("task4").innerHTML = "Raak een plaatsnaambordje aan dat begint met de letter <b>" + getRandomElem(taskSets.plaatsnaamletters) + "</b>.";
                 let vmNames = Object.entries(taskSets.vervoermiddelen).map((e) => e[0])
-                let vmWeights = Object.entries(taskSets.vervoermiddelen).map((e) => 0.5/(e[1]**2+0.5))
+                let vmWeights = Object.entries(taskSets.vervoermiddelen).map((e) => 1/(3**e[1]))
                 document.getElementById("task5").innerHTML = "Reis met een <b>" + getRandomWeightedElem(vmNames, vmWeights) + "</b>. Je moet minstens 1 halte met dit vervoermiddel afleggen.";
                 //document.getElementById("task6").innerHTML = getRandomElem(taskSets.overig);
                 //document.getElementById("task-bonus").innerHTML = "BONUS: <b>fotografeer de achtervolger</b>. De achtervolger moet herkenbaar in beeld zijn.";
